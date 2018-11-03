@@ -1,0 +1,17 @@
+insert into droppoint values('target_headquarter');
+insert into droppoint values('pointA');
+insert into droppoint values('pointB');
+insert into droppoint_distance values(1,'pointA','target_headquarter');
+insert into droppoint_distance values(2,'pointB','target_headquarter');
+insert into droppoint_distance values(1,'target_headquarter','pointA');
+insert into droppoint_distance values(1,'pointB','pointA');
+insert into droppoint_distance values(2,'target_headquarter','pointB');
+insert into droppoint_distance values(1,'pointA','pointB');
+insert into cab values(1011,2,3,'pointB');
+insert into cab values(1021,3,4,'pointB');
+insert into cab_droppoint values(1011,'pointA');
+insert into cab_droppoint values(1011,'pointB');
+insert into cab_droppoint values(1021,'pointA');
+insert into cab_droppoint values(1021,'pointB');
+insert into teammember values(1, 'pointA','M',1011);
+insert into teammember values(2, 'pointA','F',1011);
