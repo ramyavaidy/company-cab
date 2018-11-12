@@ -25,8 +25,11 @@ http://localhost:8000/swagger-ui.html
 Below are the sample requests for create services to get started. THE URLs for GET and DELETE requests can be obtained from swagger-ui.
 
 * Sample requests to create droppoint
+
 URL: http://localhost:8000/drop_points 
-Method: POST
+
+Method: `POST`
+
 ```
 {
 "target_headquarter" :"0,1,2",
@@ -36,8 +39,10 @@ Method: POST
 ```
 
 * Sample requests to delete droppoint
-URL: http://localhost:8000/drop_points 
-Method: DELETE
+
+URL: http://localhost:8000/drop_points
+
+Method: `DELETE`
 ```
 {
 "target_headquarter" :"0,1",
@@ -46,8 +51,10 @@ Method: DELETE
 ```
 
 * Sample requests to create a cab
+
 URL: http://localhost:8000/cabs 
-Method: POST
+
+Method: `POST`
 ```
 {
 	"cost":"2",
@@ -58,8 +65,10 @@ Method: POST
 ```
 
 * Sample request for team member registration
+
 URL: http://localhost:8000/register 
-Method: POST
+
+Method: `POST`
 ```
 {
 	"id":"1",
