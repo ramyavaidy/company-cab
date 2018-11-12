@@ -38,104 +38,131 @@ import com.company.cab.teammember.TeamMemberRepository;
 @RunWith(SpringRunner.class)
 @WebMvcTest
 public class DropPointControllerTest {
-	
+
 	@Autowired
 	private MockMvc mockMvc;
-	
+
 	@MockBean
 	private DroppointService dpService;
-	
+
 	@MockBean
 	private CabRepository cabRepo;
-	
+
 	@MockBean
 	private TeamMemberRepository tmRepo;
-	
+
 	@MockBean
 	private DropPointRepository dpRepo;
-	
+
 	@MockBean
 	private DroppointDistanceRepository dpdRepo;
-	
+
 	@Before
 	public void setUp() {
-	
+
 	}
-	
-	
+
 	@Test
-	public void retrieveAllDropPoints() throws Exception {
-		
+	public void verifyRetrieveAllDropPoints() throws Exception {
+
 		DropPoint dp = new DropPoint("target_headquarter");
 		DropPoint dp1 = new DropPoint("pointA");
 		List<DropPoint> dropPointsList = new ArrayList<DropPoint>();
 		dropPointsList.add(dp);
 		dropPointsList.add(dp1);
-		
-		Mockito.when( dpService.retrieveAllDropPoints()).thenReturn(dropPointsList);
-		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
-				"/drop_points").accept(
-				MediaType.APPLICATION_JSON);
-		
-		MvcResult result = mockMvc.perform(requestBuilder)
-				.andExpect(status().isOk())
+
+		Mockito.when(dpService.retrieveAllDropPoints()).thenReturn(dropPointsList);
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/drop_points").accept(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andExpect(status().isOk())
 				.andExpect(jsonPath("$", hasSize(2)))
-				.andExpect(jsonPath("$[0].dropPointName", is(dp.getDropPointName())))
-				.andReturn();
-		
+				.andExpect(jsonPath("$[0].dropPointName", is(dp.getDropPointName()))).andReturn();
+
 	}
-	
+
 	@Test
-	public void retrieveAllDropPointDistance() throws Exception {
-		
+	public void verifyRetrieveAllDropPointDistance() throws Exception {
+
 		List<DroppointResponse> dpds = new ArrayList<DroppointResponse>();
 		DroppointResponse dpResp1 = new DroppointResponse();
 		dpResp1.setDroppoint_from("target_headquarter");
 		dpResp1.setDroppoint_to("pointA");
 		dpResp1.setDistance(2);
 		dpds.add(dpResp1);
-				
-		Mockito.when( dpService.retrieveAllDropPointsDistance()).thenReturn(dpds);
-		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
-				"/drop_points/distance").accept(
-				MediaType.APPLICATION_JSON);
-		
-		MvcResult result = mockMvc.perform(requestBuilder)
-				.andExpect(status().isOk())
+
+		Mockito.when(dpService.retrieveAllDropPointsDistance()).thenReturn(dpds);
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/drop_points/distance")
+				.accept(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andExpect(status().isOk())
 				.andExpect(jsonPath("$", hasSize(1)))
 				.andExpect(jsonPath("$[0].droppoint_from", is("target_headquarter")))
-				.andExpect(jsonPath("$[0].distance", is(2.0)))
-				.andReturn();
-		
+				.andExpect(jsonPath("$[0].distance", is(2.0))).andReturn();
+
 	}
-	
+
 	@Test
-	public void createDroppoints() throws Exception{
-		
+	public void verifyDroppointsAreSaved() throws Exception {
+
 		String droppoints = "{\"target_headquarters\":\"0,1\",\"pointA\":\"1,0\"}";
-		
-		doNothing().when(dpService).saveDropPoint(Mockito.any());
-		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.post("/drop_points")
-				.accept(MediaType.APPLICATION_JSON)
-				.content(droppoints)
-				.contentType(MediaType.APPLICATION_JSON);
-		
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/drop_points").accept(MediaType.APPLICATION_JSON)
+				.content(droppoints).contentType(MediaType.APPLICATION_JSON);
+
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
 		MockHttpServletResponse response = result.getResponse();
 
-		
 		assertEquals(HttpStatus.CREATED.value(), response.getStatus());
-		
-				
-		//Mockito.when(dpService.saveDropPoint(Mockito.any())).thenReturn(Mockito.any());
-		
-		
+
 	}
-	
+
+	@Test
+	public void verifyIfBadRequestForEmptyRequestWhileCreate() throws Exception {
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/drop_points").accept(MediaType.APPLICATION_JSON)
+				.content("").contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+
+	}
+
+	@Test
+	public void verifyDeleteDroppoints() throws Exception {
+
+		String droppoints = "{\"target_headquarters\":\"0,1\",\"pointA\":\"1,0\"}";
+
+		doNothing().when(dpService).deleteDropPoint(Mockito.any());
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/drop_points").accept(MediaType.APPLICATION_JSON)
+				.content(droppoints).contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(HttpStatus.OK.value(), response.getStatus());
+
+	}
+
+	@Test
+	public void verifyIfBAdRequestForEmptyRequestWhileDelete() throws Exception {
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/drop_points").accept(MediaType.APPLICATION_JSON)
+				.content("").contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+
+	}
 
 }

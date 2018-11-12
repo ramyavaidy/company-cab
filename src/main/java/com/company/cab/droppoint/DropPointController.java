@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,12 @@ public class DropPointController {
 	DroppointService dpService;
 	
 	@PostMapping(path="/drop_points")
-	public ResponseEntity<Void> createDropPoints(@RequestBody LinkedHashMap<String,String> dropPoints) {
+	public ResponseEntity<Void> createDropPoints(@RequestBody LinkedHashMap<String,String> dropPoints) throws Exception {
+		
+		if(dropPoints == null) {
+			throw new Exception("Invalid Request ");
+		}
+		
 		dpService.saveDropPoint(dropPoints);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 		
@@ -41,30 +47,16 @@ public class DropPointController {
 		
 	}
 	
-/*	@DeleteMapping(path="/drop_points")
-	public ResponseEntity<Void> deleteDropPoints(@RequestBody List<DropPoint> dropPoints) {
+	@DeleteMapping(path="/drop_points")
+	public ResponseEntity<Void> deleteDropPoints(@RequestBody LinkedHashMap<String,String> dropPoints) throws Exception {
 		
-		List<DropPoint> repoDropPoints = repository.findAll();
-		List<DropPoint> droppointsToDel = new ArrayList<DropPoint>();
-		boolean droppointFound = false;
-		
-		for(DropPoint repodroppoint:repoDropPoints) {
-			droppointFound = false;
-			for(DropPoint droppoint:dropPoints) {
-				if(repodroppoint.getDropPointName().equals(droppoint.getDropPointName())) {
-					repository.save(droppoint);
-					droppointFound = true;
-				}				
-			}
-			
-			if(!droppointFound)
-			droppointsToDel.add(repodroppoint);
-			
+		if(dropPoints == null) {
+			throw new Exception("Invalid Request ");
 		}
-		repository.deleteAll(droppointsToDel);
+		dpService.deleteDropPoint(dropPoints);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 		
-	}*/
+	}
 		
 	//TODO - Delete droppoint
 	//TODO - update droppoint
