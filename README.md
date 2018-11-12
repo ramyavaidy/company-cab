@@ -32,7 +32,7 @@ Method: `POST`
 
 ```
 {
-"target_headquarter" :"0,1,2",
+"abcd_headquarter" :"0,1,2",
 "pointA" :"1,0,1",
 "pointB" :"2,1,0"
 }
@@ -45,7 +45,7 @@ URL: http://localhost:8000/drop_points
 Method: `DELETE`
 ```
 {
-"target_headquarter" :"0,1",
+"abcd_headquarter" :"0,1",
 "pointA" :"1,0"
 }
 ```
@@ -59,7 +59,7 @@ Method: `POST`
 {
 	"cost":"2",
 	"capacity":"5",
-	"droppoints":"target_headquarter,pointA,pointB",
+	"droppoints":"abcd_headquarter,pointA,pointB",
 	"lastDroppoint":"pointB"
 }
 ```
