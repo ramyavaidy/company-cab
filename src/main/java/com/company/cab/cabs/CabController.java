@@ -43,12 +43,12 @@ public class CabController {
 	}
 	
 	@PostMapping("/cabs")
-	public ResponseEntity<Void> createCab(@RequestBody CabRequest cabRequest){		
-		cabService.createCab(cabRequest);
-		return new ResponseEntity<Void>(HttpStatus.CREATED);
+	public ResponseEntity<Cab> createCab(@RequestBody CabRequest cabRequest){		
+		Cab cab = cabService.createCab(cabRequest);
+		return new ResponseEntity<Cab>(cab,HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/cabs/{id}")
+	/*@PutMapping("/cabs/{id}")
 	public ResponseEntity<Void> updateCab(@RequestBody CabRequest cabRequest){		
 		
 		 Optional<DropPoint> droppointOpt = null;
@@ -87,7 +87,7 @@ public class CabController {
 		repository.deleteById(id);
 		return  new ResponseEntity<Void> (HttpStatus.OK);
 		
-	}
+	}*/
 
 	
 

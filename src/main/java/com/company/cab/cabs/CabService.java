@@ -9,5 +9,5 @@ public interface CabService {
 
 	public Cab getCabById(Integer id);
 	public List<Cab> getAllCabs();
-	public void createCab(@RequestBody CabRequest cabRequest);
+	public Cab createCab(@RequestBody CabRequest cabRequest);
 }

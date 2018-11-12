@@ -56,7 +56,6 @@ public class DroppointServiceImpl implements DroppointService {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 
-		log.debug("Droppoint entries to be deleted from cab_droppoint "+dropPoints);
 		Query q = em.createNativeQuery("delete from cab_droppoint where droppoint_id in (:ids)");
 		q.setParameter("ids", dropPoints);
 		q.executeUpdate();
@@ -94,7 +93,7 @@ public class DroppointServiceImpl implements DroppointService {
 
 	}
 
-	public static List<DroppointDistance> saveDroppointDistance(List<String> dps, LinkedHashMap<String, String> dropPoints) {
+	public List<DroppointDistance> saveDroppointDistance(List<String> dps, LinkedHashMap<String, String> dropPoints) {
 		List<DroppointDistance> dpdList = new ArrayList<DroppointDistance>();
 		int count = 0;
 		for (String dp : dps) {
@@ -177,7 +176,8 @@ public class DroppointServiceImpl implements DroppointService {
 		dpdrepo.deleteAllInBatch();
 		repository.deleteAll(droppointListToDelete);
 		repository.saveAll(droppointList);
-		saveDroppointDistance(dps, dropPoints);
+		List<DroppointDistance> dpdList = saveDroppointDistance(dps, dropPoints);
+		dpdrepo.saveAll(dpdList);
 
 	}
 

@@ -28,7 +28,7 @@ public class TeamMemberServiceImpl implements TeamMemberService{
 		return tmRepo.findAll();
 	}
 	
-	public void registerTeamMembers(TeamMember teammember) {
+	public TeamMember registerTeamMembers(TeamMember teammember) {
 		
 		Optional<DropPoint> droppointOptional = dpRepo.findById(teammember.getDroppointname());
 		
@@ -43,7 +43,7 @@ public class TeamMemberServiceImpl implements TeamMemberService{
 		
 		teammember.setCab(cab);
 		
-		tmRepo.save(teammember);
+		return tmRepo.save(teammember);
 		
 	}
 	

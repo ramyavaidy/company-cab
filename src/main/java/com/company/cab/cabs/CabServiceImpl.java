@@ -35,7 +35,7 @@ public class CabServiceImpl implements CabService {
 		
 	}
 	
-	public void createCab(@RequestBody CabRequest cabRequest) {
+	public Cab createCab(@RequestBody CabRequest cabRequest) {
 		Optional<DropPoint> droppointOpt = null;
 		 
 		Cab cab = new Cab();
@@ -58,6 +58,7 @@ public class CabServiceImpl implements CabService {
 				 throw new DropPointNotFoundException("Last Drop point not found - "+cabRequest.getLastDroppoint());
 			 
 	     cab.setLastDropPoint(droppointOpt.get());
-		repository.save(cab);
+		Cab savedCab = repository.save(cab);
+		return savedCab;
 	}
 }

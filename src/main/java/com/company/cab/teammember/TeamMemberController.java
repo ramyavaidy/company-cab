@@ -23,10 +23,10 @@ public class TeamMemberController {
 	TeamMemberService teamMemberService;
 	
 	@PostMapping("/register")
-	public ResponseEntity<Void> registerTeamMembers(@RequestBody TeamMember teammember){
+	public ResponseEntity<TeamMember> registerTeamMembers(@RequestBody TeamMember teammember){
 		
-		teamMemberService.registerTeamMembers(teammember);
-		return new ResponseEntity<Void>(HttpStatus.CREATED);
+		TeamMember tm = teamMemberService.registerTeamMembers(teammember);
+		return new ResponseEntity<TeamMember>(tm,HttpStatus.CREATED);
 		
 	}
 	

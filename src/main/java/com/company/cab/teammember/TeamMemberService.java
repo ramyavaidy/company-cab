@@ -11,7 +11,7 @@ public interface TeamMemberService {
 	
 	public List<TeamMember> getTeamMembers();
 	
-	public void registerTeamMembers(TeamMember teammember);
+	public TeamMember registerTeamMembers(TeamMember teammember);
 	
 	public boolean isWomenEmployeeInLastDropPoint(Cab cab,TeamMember teammember);
 }
