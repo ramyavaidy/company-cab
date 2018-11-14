@@ -1,7 +1,8 @@
 package com.company.cab.teammember;
 
 import java.util.List;
-import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,11 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.company.cab.cabs.Cab;
-import com.company.cab.droppoint.DropPoint;
-import com.company.cab.droppoint.DropPointNotFoundException;
-import com.company.cab.droppoint.DropPointRepository;
-
 @RestController
 public class TeamMemberController {
 
@@ -23,7 +19,7 @@ public class TeamMemberController {
 	TeamMemberService teamMemberService;
 	
 	@PostMapping("/register")
-	public ResponseEntity<TeamMember> registerTeamMembers(@RequestBody TeamMember teammember){
+	public ResponseEntity<TeamMember> registerTeamMembers(@Valid @RequestBody TeamMember teammember){
 		
 		TeamMember tm = teamMemberService.registerTeamMembers(teammember);
 		return new ResponseEntity<TeamMember>(tm,HttpStatus.CREATED);

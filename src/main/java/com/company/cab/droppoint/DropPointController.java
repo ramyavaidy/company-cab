@@ -22,10 +22,6 @@ public class DropPointController {
 	@PostMapping(path="/drop_points")
 	public ResponseEntity<Void> createDropPoints(@RequestBody LinkedHashMap<String,String> dropPoints) throws Exception {
 		
-		if(dropPoints == null) {
-			throw new Exception("Invalid Request ");
-		}
-		
 		dpService.saveDropPoint(dropPoints);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 		
@@ -49,10 +45,7 @@ public class DropPointController {
 	
 	@DeleteMapping(path="/drop_points")
 	public ResponseEntity<Void> deleteDropPoints(@RequestBody LinkedHashMap<String,String> dropPoints) throws Exception {
-		
-		if(dropPoints == null) {
-			throw new Exception("Invalid Request ");
-		}
+	
 		dpService.deleteDropPoint(dropPoints);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 		

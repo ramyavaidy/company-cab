@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.company.cab.cabs.Cab;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,12 +17,15 @@ public class TeamMember {
 	
 	@Id
 	@Column(name = "teammember_id")
+	@NotNull(message="Please provide team member id")
 	private Integer id;
 	
 	@Column(name = "gender")
+	@NotNull(message="Please provide gender")
 	private String gender;
 	
 	@Column(name = "droppointname")
+	@NotNull(message="Please provide droppoint	")
 	private String droppointname; 
 	
 	@JsonIgnore

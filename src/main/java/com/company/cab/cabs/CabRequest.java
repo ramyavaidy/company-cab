@@ -1,11 +1,24 @@
 package com.company.cab.cabs;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 public class CabRequest {
 	
 	private Integer id;
-	private double cost;
-	private int capacity;
+	
+	@NotNull(message="Please provide cost")
+	@Positive(message="cost should be greater than 0")
+	private Double cost;
+	
+	@NotNull(message="Please provide capacity")
+	@Positive(message="capacity should be greater than 0")
+	private Integer capacity;
+	
+	@NotNull(message="Please provide drop points")
 	private String droppoints;
+	
+	@NotNull(message="Please provide last drop point")
 	private String lastDroppoint;
 	
 	CabRequest(){
@@ -31,13 +44,13 @@ public class CabRequest {
 	public double getCost() {
 		return cost;
 	}
-	public void setCost(double cost) {
+	public void setCost(Double cost) {
 		this.cost = cost;
 	}
 	public int getCapacity() {
 		return capacity;
 	}
-	public void setCapacity(int capacity) {
+	public void setCapacity(Integer capacity) {
 		this.capacity = capacity;
 	}
 	public String getDroppoints() {

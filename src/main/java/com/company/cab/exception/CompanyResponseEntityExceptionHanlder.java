@@ -2,8 +2,10 @@ package com.company.cab.exception;
 
 import java.util.Date;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,9 +25,12 @@ public class CompanyResponseEntityExceptionHanlder extends ResponseEntityExcepti
 		return new ResponseEntity(exceptionResponse,HttpStatus.NOT_FOUND);
 	}
 	
-	 @ExceptionHandler(Throwable.class)
-	    public final @ResponseBody ResponseEntity<Object> handleDefaultException(Throwable ex,WebRequest request) {
-		 ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),ex.getMessage());
-			return new ResponseEntity(exceptionResponse,HttpStatus.BAD_REQUEST);
-	    }
+	 
+	 @Override
+		protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+				HttpHeaders headers, HttpStatus status, WebRequest request) {
+			ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), "Validation Failed",
+					ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage());
+			return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
+		}	
 }
