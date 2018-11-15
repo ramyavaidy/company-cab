@@ -37,20 +37,23 @@ public class TeamMemberServiceTest {
 	@Mock
 	CabRepository cabRepo;
 	
-	Cab cab1;
-	Cab cab ;
-	Cab cab2;
+	Cab cabAC;
+	Cab cabAB;
+	Cab cabAB2;
 	DropPoint dp1;
 	DropPoint dp2;
 	DropPoint dp3;	
+	DropPoint dp4;
+	DropPoint dp5;
+	DropPoint dp6;	
 	List<DropPoint> dpList;
-	 TeamMember tm ;
-	 TeamMember tm1 ;
-	 TeamMember tm2;
-	 TeamMember tm3;
-	 List<TeamMember> tmList;
-	 List<TeamMember> tmList1;
-	 List<TeamMember> tmList2;
+	 TeamMember tmFemalePointA ;
+	 TeamMember tmMalePointA ;
+	 TeamMember tmMalePointB;
+	 TeamMember tmFemalePointB;
+	 List<TeamMember> tmListTwoMaleAB;
+	 List<TeamMember> tmListOneMaleAOneFemaleB;
+	 List<TeamMember> tmListTwoMaleABOneFemaleA;
 	 List<Cab> cabs;
 	 List<Cab> cabs1;
 	 
@@ -60,101 +63,101 @@ public class TeamMemberServiceTest {
 	public void setUp() {
 	
 		//pointA,pintB
-	cab = new Cab();
-	cab.setId(1);
-	cab.setCapacity(3);
-	cab.setCost(2.0);
+	cabAB = new Cab();
+	cabAB.setId(1);
+	cabAB.setCapacity(3);
+	cabAB.setCost(2.0);
 	
 	dp1 = new DropPoint("target_headquarter");
 	dp2 = new DropPoint("pointA");
 	dp3 = new DropPoint("pointB");
+	dp4 = new DropPoint("pointC");
+	
 	dpList = new ArrayList<DropPoint>();
 	dpList.add(dp1);
 	dpList.add(dp2);
 	dpList.add(dp3);
 	
-	cab.setDropPoint(dpList);
-	cab.setLastDropPoint(dp3);
-	
-	//pointA,pointB 
-	cab2 = new Cab();
-	cab2.setId(1);
-	cab2.setCapacity(3);
-	cab2.setCost(2.0);
-	
-	dp1 = new DropPoint("target_headquarter");
-	dp2 = new DropPoint("pointA");
-	dp3 = new DropPoint("pointB");
-	dpList = new ArrayList<DropPoint>();
-	dpList.add(dp1);
-	dpList.add(dp2);
-	dpList.add(dp3);
-	
-	cab2.setDropPoint(dpList);
-	cab2.setLastDropPoint(dp3);
+	cabAB.setDropPoint(dpList);
+	cabAB.setLastDropPoint(dp3);
 	
 	//pointA,pointC
-	cab1 = new Cab();
-	cab1.setId(2);
-	cab1.setCapacity(3);
-	cab1.setCost(3.0);
+		cabAC = new Cab();
+		cabAC.setId(2);
+		cabAC.setCapacity(3);
+		cabAC.setCost(3.0);
+		
+		
+		dpList = new ArrayList<DropPoint>();
+		dpList.add(dp1);
+		dpList.add(dp2);
+		dpList.add(dp4);
+		
+		cabAC.setDropPoint(dpList);
+		cabAC.setLastDropPoint(dp4);
+		
+		cabs= new ArrayList<Cab>();
+		cabs.add(cabAB);
+		cabs.add(cabAC);
+		
 	
-	dp1 = new DropPoint("target_headquarter");
-	dp2 = new DropPoint("pointA");
-	dp3 = new DropPoint("pointC");
+	//pointA,pointB 
+	cabAB2 = new Cab();
+	cabAB2.setId(1);
+	cabAB2.setCapacity(3);
+	cabAB2.setCost(2.0);
+	
 	dpList = new ArrayList<DropPoint>();
 	dpList.add(dp1);
 	dpList.add(dp2);
 	dpList.add(dp3);
 	
-	cab1.setDropPoint(dpList);
-	cab1.setLastDropPoint(dp3);
+	cabAB2.setDropPoint(dpList);
+	cabAB2.setLastDropPoint(dp3);
 	
-	cabs= new ArrayList<Cab>();
-	cabs.add(cab);
-	cabs.add(cab1);
+	
 	
 	cabs1= new ArrayList<Cab>();
-	cabs.add(cab2);
-	cabs.add(cab1);
+	cabs1.add(cabAB2);
+	cabs1.add(cabAC);
 	
-	 tm = new TeamMember(100,"F","pointA");
-	 tm1 = new TeamMember(100,"M","pointA");
-	 tm2 = new TeamMember(100,"M","pointB");
+	 tmFemalePointA = new TeamMember(100,"F","pointA");
+	 tmMalePointA = new TeamMember(100,"M","pointA");
+	 tmMalePointB = new TeamMember(100,"M","pointB");
 	 
 	   
-	 tm3= new TeamMember(101,"F","pointB");
+	 tmFemalePointB= new TeamMember(101,"F","pointB");
 	  
 	  
-	  tmList = new ArrayList<TeamMember>();
-	  tmList.add(tm1);
-	  tmList.add(tm2);
+	  tmListTwoMaleAB = new ArrayList<TeamMember>();
+	  tmListTwoMaleAB.add(tmMalePointA);
+	  tmListTwoMaleAB.add(tmMalePointB);
 	  
-	  tmList1 = new ArrayList<TeamMember>();
-	  tmList1.add(tm1);
-	  tmList1.add(tm3);
+	  tmListOneMaleAOneFemaleB = new ArrayList<TeamMember>();
+	  tmListOneMaleAOneFemaleB.add(tmMalePointA);
+	  tmListOneMaleAOneFemaleB.add(tmFemalePointB);
 	  
-	  tmList2 = new ArrayList<TeamMember>();
-	  tmList2.add(tm1);
-	  tmList2.add(tm2);	
-	  tmList2.add(tm);
+	  tmListTwoMaleABOneFemaleA = new ArrayList<TeamMember>();
+	  tmListTwoMaleABOneFemaleA.add(tmMalePointA);
+	  tmListTwoMaleABOneFemaleA.add(tmMalePointB);	
+	  tmListTwoMaleABOneFemaleA.add(tmFemalePointA);
 	}
 	
 	@Test
-	public void verifyIfFalseWhenWomenEmployeeIsNotInLastDropPoint() throws Exception {		
+	public void testIfFalseWhenWomenEmployeeIsNotInLastDropPoint() throws Exception {		
 			  
-		Mockito.when(tmRepo.findByCab(Mockito.anyInt())).thenReturn(tmList);
-		boolean isWomenEmployeeLast = teamMemberServiceImpl.isWomenEmployeeInLastDropPoint(cab, tm);
+		Mockito.when(tmRepo.findByCab(Mockito.anyInt())).thenReturn(tmListTwoMaleAB);
+		boolean isWomenEmployeeLast = teamMemberServiceImpl.isWomenEmployeeInLastDropPoint(cabAB, tmFemalePointA);
 		
 		Assert.assertEquals(false, isWomenEmployeeLast);
 	
 	}
 	
 	@Test
-	public void verifyIfTrueWhenWomenEmployeeIsInLastDropPoint() throws Exception {		
+	public void testIfTrueWhenWomenEmployeeIsInLastDropPoint() throws Exception {		
 			  
-		Mockito.when(tmRepo.findByCab(Mockito.anyInt())).thenReturn(tmList1);
-		boolean isWomenEmployeeLast = teamMemberServiceImpl.isWomenEmployeeInLastDropPoint(cab, tm);
+		Mockito.when(tmRepo.findByCab(Mockito.anyInt())).thenReturn(tmListOneMaleAOneFemaleB);
+		boolean isWomenEmployeeLast = teamMemberServiceImpl.isWomenEmployeeInLastDropPoint(cabAB, tmFemalePointA);
 		
 		Assert.assertEquals(true, isWomenEmployeeLast);
 	
@@ -162,28 +165,26 @@ public class TeamMemberServiceTest {
 	
 
 	@Test
-	public void verifyIfCabisAllocatedWhenCapacityisThere() throws Exception {
+	public void testIfCabisAllocatedWhenCapacityisThere() throws Exception {
 		
 		 Mockito.when(cabRepo.findByDropPoint(Mockito.anyString())).thenReturn(cabs);
-		 Mockito.when(tmRepo.findByCab(1)).thenReturn(tmList1);
-		 Mockito.when(tmRepo.findByCab(2)).thenReturn(tmList);
+		 Mockito.when(tmRepo.findByCab(1)).thenReturn(tmListOneMaleAOneFemaleB);
+		 Mockito.when(tmRepo.findByCab(2)).thenReturn(tmListTwoMaleAB);
 			  
-		Mockito.when(tmRepo.findByCab(Mockito.anyInt())).thenReturn(tmList1);
-		Cab resp = teamMemberServiceImpl.allocateCab(tm);
+		Cab resp = teamMemberServiceImpl.allocateCab(tmFemalePointA);
 		
 		Assert.assertNotNull(resp);
 	
 	}
 	
 	@Test
-	public void verifyIfCabisNotAllocatedWhenCapacityisNotThere() throws Exception {
+	public void testIfCabisNotAllocatedWhenCapacityisNotThere() throws Exception {
 		
 		 Mockito.when(cabRepo.findByDropPoint(Mockito.anyString())).thenReturn(cabs1);
-		 Mockito.when(tmRepo.findByCab(1)).thenReturn(tmList1);
-		 Mockito.when(tmRepo.findByCab(2)).thenReturn(tmList2);
+		 Mockito.when(tmRepo.findByCab(1)).thenReturn(tmListOneMaleAOneFemaleB);
+		 Mockito.when(tmRepo.findByCab(2)).thenReturn(tmListTwoMaleABOneFemaleA);
 			  
-		Mockito.when(tmRepo.findByCab(Mockito.anyInt())).thenReturn(tmList1);
-		Cab resp = teamMemberServiceImpl.allocateCab(tm);
+		Cab resp = teamMemberServiceImpl.allocateCab(tmFemalePointA);
 		
 		Assert.assertNull(resp);
 	
